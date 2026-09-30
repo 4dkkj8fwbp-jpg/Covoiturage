@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Covoiturage</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=Atkinson+Hyperlegible:wght@400;700&display=swap">
+<style id="css">
+:root{--bg:#f2f4f3;--sf:#fff;--ink:#1c252e;--mut:#5d6b78;--ac:#2456d6;--acink:#fff;--ln:#d5dce1;--hl:#f2b705;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#12171c;--sf:#1a2128;--ink:#e9eef2;--mut:#93a1ae;--ac:#7ea3ff;--acink:#0d1520;--ln:#2b353e}}
+:root[data-theme="dark"]{--bg:#12171c;--sf:#1a2128;--ink:#e9eef2;--mut:#93a1ae;--ac:#7ea3ff;--acink:#0d1520;--ln:#2b353e}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 'Atkinson Hyperlegible',system-ui,sans-serif}
+h1,h2,.big{font-family:'Bricolage Grotesque',Georgia,serif;letter-spacing:-.01em}
+.wrap{max-width:640px;margin:0 auto;padding:20px 16px 56px}
+h1{font-size:1.6rem;margin:0 0 16px}
+h2{font-size:1.15rem;margin:28px 0 10px}
+p{margin:.25rem 0}
+.mut{color:var(--mut)}
+#hero{background:var(--ac);color:var(--acink);border-radius:14px;padding:20px}
+#hero .big{font-size:1.9rem;font-weight:800;line-height:1.15;margin:.3rem 0}
+.road{border:0;border-top:3px dashed var(--hl);margin:14px 0}
+label{display:block;font-weight:700;font-size:.9rem;margin:12px 0 0}
+input,select{display:block;width:100%;box-sizing:border-box;min-height:44px;margin-top:4px;padding:10px 12px;font:inherit;font-weight:400;color:var(--ink);background:var(--sf);border:1px solid var(--ln);border-radius:8px}
+:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
+textarea{display:block;width:100%;box-sizing:border-box;margin-top:4px;padding:10px 12px;font:inherit;font-weight:400;color:var(--ink);background:var(--sf);border:1px solid var(--ln);border-radius:8px}
+#sy .btn{margin-top:12px}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+fieldset{border:0;padding:0;margin:14px 0 0}
+legend{font-weight:700;font-size:.9rem;padding:0}
+#fpax{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:6px}
+#fpax label{display:flex;align-items:center;gap:8px;font-weight:400;font-size:1rem;margin:0;min-height:44px}
+#fpax input{width:20px;height:20px;min-height:0;margin:0}
+.btn{width:100%;min-height:48px;margin-top:18px;border:0;border-radius:8px;background:var(--ac);color:var(--acink);font:700 1rem inherit;font-family:inherit;cursor:pointer}
+.t{display:grid;grid-template-columns:minmax(0,1fr) 1.3fr auto;gap:12px;align-items:center;padding:6px 0}
+.bar{height:8px;background:repeating-linear-gradient(90deg,var(--ln) 0 10px,transparent 10px 16px)}
+.bar i{display:block;height:100%;background:var(--ac);border-radius:4px}
+.n{font-size:.9rem;color:var(--mut);white-space:nowrap}
+.row{display:grid;grid-template-columns:5.5rem 1fr auto;gap:12px;padding:12px 0;border-top:1px solid var(--ln)}
+.row .d{font-weight:700;font-size:.9rem}
+.row .m span,.row .m i{display:block;color:var(--mut);font-size:.92rem}
+.del{align-self:start;min-height:44px;padding:0 10px;background:none;border:1px solid var(--ln);border-radius:8px;color:var(--mut);font:inherit;font-size:.85rem;cursor:pointer}
+details{margin-top:20px;border-top:1px solid var(--ln);padding-top:6px}
+summary{font-weight:700;min-height:44px;display:flex;align-items:center;cursor:pointer}
+#toast{position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:8px;opacity:0;pointer-events:none;transition:opacity .2s}
+#toast.on{opacity:1}
+.ro .ed,.ro .del{display:none}
+@media (max-width:420px){.row{grid-template-columns:1fr auto}.row .d{grid-column:1/-1}}
+@media (prefers-reduced-motion:reduce){#toast{transition:none}}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script type="application/json" id="state">{"people":[{"n":"Hugues","car":""},{"n":"Ludovic","car":""},{"n":"Romain","car":"3008"}],"trips":[{"id":"mul3mh3t","date":"2026-10-04","time":"20:00","driver":2,"car":"3008","pax":[0],"dest":"Bourges","note":""},{"id":"mul3p1n9","date":"2026-10-09","time":"12:30","driver":2,"car":"3008","pax":[0,1],"dest":"Clermont","note":""},{"id":"mul3pfno","date":"2026-10-11","time":"","driver":2,"car":"3008","pax":[0,1],"dest":"Bourges","note":""},{"id":"mul3pzp7","date":"2026-10-16","time":"","driver":1,"car":"","pax":[0],"dest":"Clermont","note":""},{"id":"mul3qgh2","date":"2026-10-18","time":"","driver":1,"car":"","pax":[0],"dest":"Bourges","note":""}],"del":[]}</script>
+<script id="js">
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const D=JSON.parse($('#state').textContent);
+let S=D;
+try{const r=localStorage.getItem('covoit1');if(r)S=Object.assign({},D,JSON.parse(r))}catch(e){}
+const persist=()=>{try{localStorage.setItem('covoit1',JSON.stringify(S))}catch(e){}};
+let tt,dirty=false,busy=false;
+const SHARED_URL='https://script.google.com/macros/s/AKfycbyvmzjrAXQeiUTLbZcOjc8W_H8AZdwK0SXnqHkEQTetYWqUcshZhNYLjjVCYSkXqCu0gQ/exec';
+const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const nm=i=>S.people[i].n||'Personne '+(i+1);
+const today=()=>new Date(Date.now()-new Date().getTimezoneOffset()*6e4).toISOString().slice(0,10);
+const fmt=(d,t)=>new Date(d+'T'+(t||'12:00')).toLocaleDateString('fr-FR',{weekday:'short',day:'numeric',month:'short'})+(t?' à '+t.replace(':','h'):'');
+const key=t=>t.date+(t.time||'');
+const who=t=>'Conduit par '+esc(nm(t.driver))+(t.car?', '+esc(t.car):'');
+const withp=t=>t.pax.length?'Avec '+esc(t.pax.map(nm).join(' et ')):'Sans passager';
+
+function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('on'),2500)}
+function mut(fn,msg){fn();dirty=true;persist();render();toast(msg);push()}
+
+function init(){
+  $('#app').className='wrap';
+  $('#app').innerHTML=`<h1>Covoiturage</h1>
+<section id="hero"></section>
+<details id="pd"><summary>Les 3 personnes</summary><div id="ppl"></div><label>Stockage partagé (adresse Google)<input id="fsu" placeholder="https://script.google.com/macros/s/…/exec"></label><p id="sst" class="mut"></p></details>
+<h2>Qui a conduit</h2><div id="tally"></div>
+<section class="ed"><h2>Ajouter un trajet</h2>
+<div class="g2"><label>Date<input type="date" id="fd"></label><label>Heure<input type="time" id="ft"></label></div>
+<label>Destination<input id="fdest" placeholder="Ex. Clermont-Ferrand, gare"></label>
+<label>Conducteur<select id="fdr"><option value="0"></option><option value="1"></option><option value="2"></option></select></label>
+<label>Voiture<input id="fcar" placeholder="Ex. Clio grise"></label>
+<fieldset><legend>Passagers</legend><div id="fpax">${[0,1,2].map(i=>`<label><input type="checkbox" value="${i}"><span></span></label>`).join('')}</div></fieldset>
+<label>Remarque<input id="fnote" placeholder="Facultatif"></label>
+<button class="btn" id="fadd">Ajouter le trajet</button></section>
+<div id="lists"><h2>Trajets à venir</h2><div id="up"></div><h2>Trajets passés</h2><div id="past"></div></div>
+<div id="toast" role="status"></div>`;
+  $('#ppl').innerHTML=[0,1,2].map(i=>`<div class="g2"><label>Prénom ${i+1}<input data-i="${i}" data-f="n" value="${esc(S.people[i].n)}" placeholder="Personne ${i+1}"></label><label>Voiture habituelle<input data-i="${i}" data-f="car" value="${esc(S.people[i].car)}" placeholder="Ex. Clio grise"></label></div>`).join('');
+  $('#pd').open=S.people.every(p=>!p.n);
+  $('#fd').value=today();
+  sync();
+  $('#fdr').onchange=sync;
+  $('#ppl').onchange=e=>{const i=+e.target.dataset.i,f=e.target.dataset.f;mut(()=>{S.people[i][f]=e.target.value.trim();S.pt=Date.now()},'Prénom modifié')};
+  $('#fadd').onclick=()=>{
+    const date=$('#fd').value,dest=$('#fdest').value.trim();
+    if(!date||!dest){toast('Date et destination obligatoires');return}
+    mut(()=>S.trips.push({id:Date.now().toString(36),date,time:$('#ft').value,driver:+$('#fdr').value,car:$('#fcar').value.trim(),pax:$$('#fpax input:checked').map(c=>+c.value),dest,note:$('#fnote').value.trim()}),'Trajet ajouté');
+  };
+  $('#lists').onclick=e=>{
+    const b=e.target.closest('.del');if(!b)return;
+    if(!b.dataset.a){b.dataset.a=1;b.textContent='Confirmer ?';setTimeout(()=>{b.dataset.a='';b.textContent='Supprimer'},3000);return}
+    mut(()=>{S.del=(S.del||[]).concat(b.dataset.id);S.trips=S.trips.filter(t=>t.id!==b.dataset.id)},'Trajet supprimé');
+  };
+}
+function sync(){
+  const d=+$('#fdr').value;
+  $('#fcar').value=S.people[d].car||'';
+  $$('#fpax input').forEach(c=>{c.disabled=+c.value===d;c.checked=!c.disabled});
+}
+const row=t=>`<div class="row"><div class="d">${fmt(t.date,t.time)}</div><div class="m"><b>${esc(t.dest)}</b><span>${who(t)}</span><span>${withp(t)}</span>${t.note?`<i>${esc(t.note)}</i>`:''}</div><button class="del" data-id="${t.id}" aria-label="Supprimer le trajet vers ${esc(t.dest)}">Supprimer</button></div>`;
+
+function render(){
+  const td=today();
+  $$('#fdr option').forEach((o,i)=>o.textContent=nm(i));
+  $$('#fpax span').forEach((s,i)=>s.textContent=nm(i));
+  $$('#ppl input').forEach(i=>{i.value=S.people[i.dataset.i][i.dataset.f]||''});
+  const up=S.trips.filter(t=>t.date>=td).sort((a,b)=>key(a).localeCompare(key(b)));
+  const past=S.trips.filter(t=>t.date<td).sort((a,b)=>key(b).localeCompare(key(a)));
+  const n=up[0];
+  $('#hero').innerHTML=n?`<p>Prochain trajet, ${fmt(n.date,n.time)}</p><p class="big">${esc(n.dest)}</p><hr class="road"><p>${who(n)}</p><p>${withp(n)}</p>${n.note?`<p>${esc(n.note)}</p>`:''}`:`<p class="big">Aucun trajet prévu</p><hr class="road"><p>Ajoutez le prochain trajet dans le formulaire plus bas.</p>`;
+  const dr=[0,1,2].map(i=>S.trips.filter(t=>t.driver===i).length);
+  const last=[0,1,2].map(i=>S.trips.filter(t=>t.driver===i).map(t=>t.date).sort().pop()||'');
+  const nx=[0,1,2].sort((a,b)=>dr[a]-dr[b]||last[a].localeCompare(last[b]))[0];
+  const mx=Math.max(1,...dr);
+  $('#tally').innerHTML=(S.trips.length?`<p>Prochain à conduire : <b>${esc(nm(nx))}</b></p>`:'<p class="mut">Le décompte apparaît dès le premier trajet.</p>')+[0,1,2].map(i=>`<div class="t"><span>${esc(nm(i))}</span><div class="bar"><i style="width:${dr[i]/mx*100}%"></i></div><span class="n">${dr[i]} ${dr[i]>1?'trajets':'trajet'}</span></div>`).join('');
+  $('#up').innerHTML=up.length?up.map(row).join(''):'<p class="mut">Aucun trajet à venir.</p>';
+  $('#past').innerHTML=past.length?past.map(row).join(''):'<p class="mut">Aucun trajet passé pour l’instant.</p>';
+}
+init();render();
+const okT=t=>t&&typeof t.id==='string'&&/^\d{4}-\d\d-\d\d$/.test(t.date)&&[0,1,2].includes(t.driver)&&Array.isArray(t.pax)&&t.pax.every(i=>[0,1,2].includes(i))&&typeof t.dest==='string';
+const cleanT=t=>({id:t.id,date:t.date,time:String(t.time||'').slice(0,5),driver:t.driver,car:String(t.car||''),pax:t.pax,dest:t.dest,note:String(t.note||'')});
+function merge(o){
+  if(!o||!Array.isArray(o.trips)||!Array.isArray(o.people))return;
+  S.del=[...new Set([...(S.del||[]),...(Array.isArray(o.del)?o.del.map(String):[])])];
+  const ids=new Set(S.trips.map(t=>t.id));
+  o.trips.filter(okT).forEach(t=>{if(!ids.has(t.id))S.trips.push(cleanT(t))});
+  S.trips=S.trips.filter(t=>!S.del.includes(t.id));
+  if((o.pt||0)>(S.pt||0)){S.pt=o.pt;o.people.slice(0,3).forEach((p,i)=>{S.people[i]={n:String(p&&p.n||''),car:String(p&&p.car||'')}})}
+}
+const url=()=>{try{return(SHARED_URL||localStorage.getItem('covoit-url')||'').trim()}catch(e){return SHARED_URL}};
+const stat=m=>{$('#sst').textContent=m};
+const hhmm=()=>new Date().toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'});
+async function pull(){
+  const u=url();
+  const r=await fetch(u+(u.includes('?')?'&':'?')+'t='+Date.now());
+  if(!r.ok)throw new Error('http '+r.status);
+  const o=await r.json();
+  merge(o);persist();render();
+  const rid=new Set((o.trips||[]).map(t=>t.id)),rd=new Set((o.del||[]).map(String));
+  dirty=S.trips.some(t=>!rid.has(t.id))||(S.del||[]).some(d=>!rd.has(d))||(S.pt||0)>(o.pt||0);
+}
+async function push(){
+  if(!url()||busy)return;busy=true;
+  try{
+    await fetch(url(),{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(S)});
+    await pull();
+    stat(dirty?'Envoi en attente, nouvel essai bientôt':'Synchronisé à '+hhmm());
+  }catch(e){stat('Hors ligne ou adresse invalide : les changements seront envoyés plus tard')}
+  busy=false;
+}
+async function tick(){
+  if(!url()){stat('Mode local : les données restent sur cet appareil.');return}
+  if(busy)return;
+  if(dirty){await push();return}
+  try{await pull();if(dirty){await push();return}stat('Synchronisé à '+hhmm())}
+  catch(e){stat('Hors ligne ou adresse invalide')}
+}
+try{$('#fsu').value=localStorage.getItem('covoit-url')||''}catch(e){}
+if(SHARED_URL)$('#fsu').closest('label').style.display='none';
+$('#fsu').onchange=e=>{try{localStorage.setItem('covoit-url',e.target.value.trim())}catch(x){}tick()};
+tick();
+setInterval(tick,20000);
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)tick()});
+</script>
+</body>
+</html>
